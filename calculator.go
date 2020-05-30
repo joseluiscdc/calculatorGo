@@ -24,7 +24,7 @@ func (c Calc) getOperators() {
 	log.Println(c.operatorOne, c.operatorTwo, "Op1 = %s \n Op2 = %s")
 }
 
-func (c Calc) Operate(operation string) int {
+func (c Calc) operate(operation string) int {
 	switch operation {
 	case "+":
 		return c.operatorOne + c.operatorTwo
