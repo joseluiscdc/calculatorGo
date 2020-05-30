@@ -68,7 +68,7 @@ func (c Calc) CalculateInput(input string) {
 	}
 }
 
-func (c Calc) ReadInput() string {
+func ReadInput() string {
 	scanner := bufio.NewScanner(os.Stdin)
 	scanner.Scan()
 	return scanner.Text()
