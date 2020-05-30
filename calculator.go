@@ -1,4 +1,4 @@
-package calculatorGo
+package calculator
 
 import (
 	"bufio"
@@ -39,23 +39,23 @@ func (c Calc) operate(operation string) int {
 	}
 }
 
-func (c Calc) processResult(input string, operator string) string {
+func (c Calc) processResult(input string, operator string) (string, int) {
 	cleanInput := strings.Split(input, operator)
 
 	first, err := c.parseString(cleanInput[0])
 	second, err := c.parseString(cleanInput[1])
 
 	if err != nil {
-		return err.Error()
+		return err.Error(), 0
 	} else {
 		c.operatorOne = first
 		c.operatorTwo = second
 		value := c.operate(operator)
-		return "Result of " + input + " equals to : " + string(value)
+		return "Result of " + input + " equals to : ", value
 	}
 }
 
-func (c Calc) CalculateInput(input string) string {
+func (c Calc) CalculateInput(input string) (string, int) {
 	match, _ := regexp.MatchString("[0-9]([/]|[*]|[-]|[+])[0-9]", input)
 	r, _ := regexp.Compile("[0-9]([/]|[*]|[-]|[+]+)[0-9]")
 
@@ -63,7 +63,7 @@ func (c Calc) CalculateInput(input string) string {
 		operator := r.FindStringSubmatch(input)[1]
 		return c.processResult(input, operator)
 	} else {
-		return "Input is not valid!"
+		return "Input is not valid!", 0
 	}
 }
 
