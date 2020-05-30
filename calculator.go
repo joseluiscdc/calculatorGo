@@ -20,11 +20,11 @@ func (Calc) parseString(operator string) (int, error) {
 	return result, err
 }
 
-func (c *Calc) getOperators() {
+func (c Calc) getOperators() {
 	log.Println(c.operatorOne, c.operatorTwo, "Op1 = %s \n Op2 = %s")
 }
 
-func (c *Calc) operate(operation string) int {
+func (c Calc) operate(operation string) int {
 	switch operation {
 	case "+":
 		return c.operatorOne + c.operatorTwo
@@ -40,7 +40,7 @@ func (c *Calc) operate(operation string) int {
 	}
 }
 
-func (c *Calc) processResult(input string, operator string) {
+func (c Calc) processResult(input string, operator string) {
 	cleanInput := strings.Split(input, operator)
 
 	first, err := c.parseString(cleanInput[0])
@@ -56,7 +56,7 @@ func (c *Calc) processResult(input string, operator string) {
 	}
 }
 
-func (c *Calc) CalculateInput(input string) {
+func (c Calc) CalculateInput(input string) {
 	match, _ := regexp.MatchString("[0-9]([/]|[*]|[-]|[+])[0-9]", input)
 	r, _ := regexp.Compile("[0-9]([/]|[*]|[-]|[+]+)[0-9]")
 
@@ -68,7 +68,7 @@ func (c *Calc) CalculateInput(input string) {
 	}
 }
 
-func (c *Calc) ReadInput() string {
+func (c Calc) ReadInput() string {
 	scanner := bufio.NewScanner(os.Stdin)
 	scanner.Scan()
 	return scanner.Text()
