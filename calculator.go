@@ -63,7 +63,7 @@ func (c Calc) CalculateInput(input string) (string, int) {
 		operator := r.FindStringSubmatch(input)[1]
 		return c.processResult(input, operator)
 	} else {
-		return "Input is not valid!", 0
+		return "Input is not valid! ", 0
 	}
 }
 
