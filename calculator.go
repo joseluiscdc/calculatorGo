@@ -2,7 +2,6 @@ package calculatorGo
 
 import (
 	"bufio"
-	"fmt"
 	"log"
 	"os"
 	"regexp"
@@ -40,31 +39,31 @@ func (c Calc) operate(operation string) int {
 	}
 }
 
-func (c Calc) processResult(input string, operator string) {
+func (c Calc) processResult(input string, operator string) string {
 	cleanInput := strings.Split(input, operator)
 
 	first, err := c.parseString(cleanInput[0])
 	second, err := c.parseString(cleanInput[1])
 
 	if err != nil {
-		fmt.Println(err)
+		return err.Error()
 	} else {
 		c.operatorOne = first
 		c.operatorTwo = second
 		value := c.operate(operator)
-		fmt.Println("Result of", input, " equals to : ", value)
+		return "Result of " + input + " equals to : " + string(value)
 	}
 }
 
-func (c Calc) CalculateInput(input string) {
+func (c Calc) CalculateInput(input string) string {
 	match, _ := regexp.MatchString("[0-9]([/]|[*]|[-]|[+])[0-9]", input)
 	r, _ := regexp.Compile("[0-9]([/]|[*]|[-]|[+]+)[0-9]")
 
 	if match && len(r.FindStringSubmatch(input)) > 1 {
 		operator := r.FindStringSubmatch(input)[1]
-		c.processResult(input, operator)
+		return c.processResult(input, operator)
 	} else {
-		fmt.Println("Input is not valid!")
+		return "Input is not valid!"
 	}
 }
 
