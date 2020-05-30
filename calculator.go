@@ -40,15 +40,13 @@ func (c Calc) operate(operation string) int {
 	}
 }
 
-func ReadInput() string {
+func (c Calc) ReadInput() string {
 	scanner := bufio.NewScanner(os.Stdin)
 	scanner.Scan()
 	return scanner.Text()
 }
 
-func processResult(input string, operator string) {
-	c := Calc{}
-
+func (c Calc) processResult(input string, operator string) {
 	cleanInput := strings.Split(input, operator)
 
 	first, err := c.parseString(cleanInput[0])
@@ -59,18 +57,18 @@ func processResult(input string, operator string) {
 	} else {
 		c.operatorOne = first
 		c.operatorTwo = second
-		value := c.Operate(operator)
+		value := c.operate(operator)
 		fmt.Println("Result of", input, " equals to : ", value)
 	}
 }
 
-func CalculateInput(input string) {
+func (c Calc) CalculateInput(input string) {
 	match, _ := regexp.MatchString("[0-9]([/]|[*]|[-]|[+])[0-9]", input)
 	r, _ := regexp.Compile("[0-9]([/]|[*]|[-]|[+]+)[0-9]")
 
 	if match && len(r.FindStringSubmatch(input)) > 1 {
 		operator := r.FindStringSubmatch(input)[1]
-		processResult(input, operator)
+		c.processResult(input, operator)
 	} else {
 		fmt.Println("Input is not valid!")
 	}
