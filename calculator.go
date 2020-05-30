@@ -40,7 +40,7 @@ func (c Calc) Operate(operation string) int {
 	}
 }
 
-func readInput() string {
+func ReadInput() string {
 	scanner := bufio.NewScanner(os.Stdin)
 	scanner.Scan()
 	return scanner.Text()
@@ -64,14 +64,14 @@ func processResult(input string, operator string) {
 	}
 }
 
-func validateInput(input string) (bool, string, string) {
+func CalculateInput(input string) {
 	match, _ := regexp.MatchString("[0-9]([/]|[*]|[-]|[+])[0-9]", input)
 	r, _ := regexp.Compile("[0-9]([/]|[*]|[-]|[+]+)[0-9]")
 
 	if match && len(r.FindStringSubmatch(input)) > 1 {
-		operatorVal := r.FindStringSubmatch(input)[1]
-		return match, "Input valid!", operatorVal
+		operator := r.FindStringSubmatch(input)[1]
+		processResult(input, operator)
 	} else {
-		return match, "Input is not valid!", ""
+		fmt.Println("Input is not valid!")
 	}
 }
