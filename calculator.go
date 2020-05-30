@@ -1,4 +1,4 @@
-package calculator
+package calculatorGo
 
 import (
 	"bufio"
